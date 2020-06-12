@@ -42,6 +42,32 @@
 		 	}
 	 	}
 	}
-	console.log(findMedianSortedArrays([2,3,4,5,6],[1]));
+	// console.log(findMedianSortedArrays([2,3,4,5,6],[1]));
+
+	function smallestDistancePair (nums, k) {
+		nums.sort((a, b) => a - b);
+		
+	}
+	function preorderTraversal (root) {
+		let result = [];
+		if (!root) {
+			return result;
+		}
+		result.push(root.val);
+		if (root.left) {
+	 		result = result.concat(preorderTraversal(root.left));
+		}
+		if (root.right) {
+			result = result.concat(preorderTraversal(root.right));
+		}
+		return result;
+	}
+
+	function preorderTraversal (root) {
+		let result = [];
+		if (!root) {
+			return result;
+		}
+	}
 </script>
 </html>
