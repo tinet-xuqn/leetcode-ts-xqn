@@ -68,6 +68,80 @@
 		if (!root) {
 			return result;
 		}
+		let stack = [root];
+		while (stack.length) {
+			let item = stack.pop();
+			result.push(item.val);
+			if (item.right) {
+				stack.push(item.right);
+			}
+			if (item.left) {
+				stack.push(item.left);
+			}
+		}
+		return result;
+	}
+
+	function inorderTraversal (root) {
+		let result = [];
+		if (!root) {
+			return result;
+		}
+		if (root.left) {
+			result = result.concat(inorderTraversal(root.left));
+		}
+		result.push(root.val);
+		if (root.right) {
+			result = result.concat(inorderTraversal(root.right));
+		}
+		return result;
+	}
+	function inorderTraversal (root) {
+		let result = [];
+		let stack = [];
+		while (root || stack.length) {
+			while (root) {
+				stack.push(root);
+				root = root.left;
+			}
+			root = stack.pop();
+			result.push(root.val);
+			root = root.right;
+		}
+		return result;
+	}
+
+	function postorderTraversal (root) {
+		let result = [];
+		dfs(root, result);
+		function dfs (root, result) {
+			if (!root) {
+				return result;
+			}
+			if (root.left) {
+				dfs(root.left, result);
+			}
+			if (root.right) {
+				dfs(root.right, result);
+			}
+			result.push(root.val);
+		}
+		return result;
+	}
+
+	function postorderTraversal (root) {
+		let result = [];
+		let stack = [];
+		while (root || stack.length) {
+			while (root) {
+				stack.push(root);
+				root = root.left;
+			}
+			let current = stack.pop();
+			result.push(current.val);
+			root = current.right;
+		}
+		return result;
 	}
 </script>
 </html>
