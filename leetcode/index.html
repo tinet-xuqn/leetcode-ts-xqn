@@ -221,23 +221,13 @@
 
 	function hasPathSum (root, sum) {
 		if (!root) {
-			return false
+			return false;
 		}
-		function check (root, sum) {
-			if (!root) {
-				return false;
-			}
-			if (!root.left && !root.right && sum === root.val) {
-				return true;
-			}
-			if (!root.left && !root.right && sum === root.val) {
-				return false;
-			}
-			return check(root.left, sum - root.val)
-				|| check(root.right, sum - root.val);
+		if (!root.left && !root.right) {
+			return sum === root.val;
 		}
-		return check(root.left, sum - root.val)
-			|| check(root.right, sum - root.val);
+		return hasPathSum(root.left, sum - root.val)
+			|| hasPathSum(root.right, sum - root.val);
 	}
 
 	function longestCommonPrefix (strs) {
@@ -256,6 +246,10 @@
 			}
 		}
 		return commonPrefix;
+	}
+
+	function maxScoreSightseeingPair (A) {
+		
 	}
 </script>
 </html>
