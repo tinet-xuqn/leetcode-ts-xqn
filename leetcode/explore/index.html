@@ -250,6 +250,26 @@
 
 	function maxScoreSightseeingPair (A) {
 		
-	}
+  }
+  
+  function shortestPalindrome(s) {
+    if (s === void 0) { s = "aacecaaa"; }
+    if (!s) {
+      return '';
+    }
+    var sArr = s.split('');
+    var rArr = sArr.reverse();
+    var i = 1;
+    var l = s.length;
+    while (sArr.toString() !== rArr.toString()) {
+      sArr.splice(i - 1, 0, s[l - i]);
+      rArr.splice(l, 0, s[l - i]);
+      i++;
+    }
+    return rArr.join('');
+  }
+  ;
+  shortestPalindrome();
+
 </script>
 </html>
