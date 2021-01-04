@@ -23,5 +23,5 @@ function reorganizeString(S: string): string {
       });
     }
   }
-  
+
 };
