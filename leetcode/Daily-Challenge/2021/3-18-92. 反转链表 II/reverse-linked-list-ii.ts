@@ -49,6 +49,44 @@ function reverseBetween(head: ListNode | null, left: number, right: number): Lis
   return res.next;
 }
 
+function reverseBetween1(head: ListNode | null, left: number, right: number): ListNode | null {
+  const res = new ListNode();
+  res.next = head;
+  let pre = res;
+  for (let i = 1; i < left; i++) {
+    pre = pre.next;
+  }
+  let rightNode = pre;
+  for (let i = 0; i < right - left + 1; i++) {
+    rightNode = rightNode.next;
+  }
+  let leftNode = pre.next;
+  let succ = rightNode.next;
+  pre.next = null;
+  rightNode.next = null;
+
+  pre.next = reverseList(leftNode);
+  leftNode.next = succ;
+  return res.next;
+}
+
+function reverseBetween2(head: ListNode | null, left: number, right: number): ListNode | null {
+  const res = new ListNode();
+  res.next = head;
+  let pre = res;
+  for (let i = 1; i < left; i++) {
+    pre = pre.next;
+  }
+  let cur = pre.next;
+  for (let i = 0; i < right - left; i++) {
+    const next = cur.next;
+    cur.next = next.next;
+    next.next = pre.next;
+    pre.next = next;
+  }
+  return res.next;
+}
+
 function reverseList(head: ListNode | null): ListNode | null {
   let pre: ListNode | null = null;
   let cur = head;
