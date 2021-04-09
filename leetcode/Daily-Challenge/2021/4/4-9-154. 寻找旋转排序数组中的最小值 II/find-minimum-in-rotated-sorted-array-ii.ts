@@ -1,13 +1,14 @@
 function findMin(nums: number[]): number {
-  const n: number = nums.length;
   let left: number = 0;
-  let right: number = n - 1;
+  let right: number = nums.length - 1;
   let mid: number = Math.floor((left + right) / 2);
-  while (left < right) {
+  while (mid < right) {
     if (nums[mid] < nums[right]) {
       right = mid;
-    } else {
+    } else if (nums[mid] > nums[right]) {
       left = mid + 1;
+    } else {
+      right--;
     }
     mid = Math.floor((left + right) / 2);
   }
