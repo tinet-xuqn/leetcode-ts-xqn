@@ -7,5 +7,5 @@ function removeDuplicates(nums: number[]): number {
       nums[left] = nums[i];
     }
   }
-  return left + 2;
+  return left + 1;
 };
