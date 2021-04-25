@@ -6,9 +6,13 @@ function maxSumSubmatrix(matrix: number[][], k: number): number {
   for (let i = 0; i < m; i++) {
     const b: number[] = new Array(n).fill(0);
     for (let j = i; j < m; j++) {
+
+      // 将二维数组变成一维
       for (let index = 0; index < n; index++) {
         b[index] += matrix[j][index];
       }
+
+      // 寻找子集最大和
       for (let bi = 0; bi < n; bi++) {
         let sum: number = 0;
         for (let bj = bi; bj < n; bj++) {
