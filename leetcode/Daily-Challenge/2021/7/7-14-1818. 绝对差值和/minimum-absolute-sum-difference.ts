@@ -1,33 +1,33 @@
 function minAbsoluteSumDiff(nums1: number[], nums2: number[]): number {
   const n: number = nums1.length;
-  let sum: number[][] = [];
+  const sortedNums1: number[] = [...nums1].sort((a, b) => a - b);
+  let sum: number = 0;
+  let maxDiff: number = 0;
   for (let i = 0; i < n; i++) {
-    sum.push([
-      Math.abs(nums1[i] - nums2[i]),
-      nums1[i],
-      nums2[i]]);
+    const Dvalue: number = Math.abs(nums2[i] - nums1[i]);
+    sum += Dvalue;
+    const min = find(nums2[i], sortedNums1, n);
+    maxDiff = Math.max(maxDiff, Dvalue - min);
   }
-  sum.sort((a, b) => {
-    return (b[0] - a[0]);
-  });
-  nums1.sort((a, b) => a - b);
-  const item = sum[0];
-  if (item[2] <= nums1[0]) {
-    item[0] = Math.abs(nums1[0] - item[2]);
-  } else if (item[2] >= nums1[n - 1]) {
-    item[0] = Math.abs(nums1[n - 1] - item[2]);
-  } else {
-    console.log(nums1);
-    for (let i = 0; i < n; i++) {
-      if (item[2] <= nums1[i + 1]) {
-        item[0] = Math.min(Math.abs(item[2] - nums1[i]), Math.abs(item[2] - nums1[i + 1]));
-        break;
-      }
+  return (sum - maxDiff) % 1000000007;
+};
+
+function find(target: number, nums: number[], length: number) {
+  let left: number = 0, leftVal: number = nums[left];
+  let right: number = length - 1, rightVal: number = nums[right];
+  while (left <= right) {
+    const mid: number = Math.floor((left + right) / 2);
+    if (nums[mid] < target) {
+      left = mid + 1;
+      leftVal = nums[mid];
+    } else if (nums[mid] > target) {
+      right = mid - 1;
+      rightVal = nums[mid];
+    } else {
+      return 0;
     }
   }
-  console.log(sum , item);
-  return sum.reduce(
-    (acc, cur) => acc + cur[0],
-    0
-  ) % (10^9 + 7);
-};
+  const leftabs: number = Math.abs(target - leftVal);
+  const rightabs: number = Math.abs(target - rightVal);
+  return Math.min(leftabs, rightabs);
+}
