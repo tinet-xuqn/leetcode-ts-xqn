@@ -10,36 +10,31 @@ class TreeNode {
 }
 
 function delNodes(root: TreeNode | null, to_delete: number[]): Array<TreeNode | null> {
-  if (!root) {
-    return [null]
-  }
   const res: Array<TreeNode | null> = []
-  const queue = [new TreeNode(0, root)]
-  const fa = []
-  while (queue.length) {
-    const item = <TreeNode>queue.shift()
-    if (item.left) {
-      queue.push(item.left)
-
-      const index = to_delete.findIndex(val => val === item.left.val)
-      if (index === -1) {
-        res.push(item.left)
-      } else {
-        item.left = null
-        to_delete.splice(index, 1)
-      }
-    }
-    if (item.right) {
-      queue.push(item.right)
-
-      const index = to_delete.findIndex(val => val === item.right.val)
-      if (index === -1) {
-        res.push(item.right)
-      } else {
-        item.right = null
-        to_delete.splice(index, 1)
-      }
-    }
+  const set: Set<number> = new Set(to_delete)
+  root = dfs(root)
+  if (root) {
+    res.push(root)
   }
   return res
+
+  function dfs(node: TreeNode | null): TreeNode | null {
+    if (node === null) {
+      return null
+    }
+    node.left = dfs(node.left)
+    node.right = dfs(node.right)
+    if (set.has(node.val)) {
+      set.delete(node.val)
+      if (node.left) {
+        res.push(node.left)
+      }
+      if (node.right) {
+        res.push(node.right)
+      }
+      return null
+    }
+    return node
+  }
 };
+
