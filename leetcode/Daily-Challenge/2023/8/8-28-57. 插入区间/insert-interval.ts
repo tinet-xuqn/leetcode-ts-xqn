@@ -1,22 +1,26 @@
 function insert(intervals: number[][], newInterval: number[]): number[][] {
-  const min: number = newInterval[0]
-  const max: number = newInterval[1]
-
-  const left: number = intervals.findIndex(item => {
-    return (item[0] >= min) || (item[1] >= min)
-  })
-  const right: number = intervals.findIndex(item => {
-    return (item[0] >= max) || (item[1] >= max)
-  })
-  if (left === right) {
-    if (max < intervals[left][0]) {
-      intervals.splice(left, 0, newInterval)
-    } else {
-      intervals.splice(left, 1, [min, intervals[left][1]])
+  let min: number = newInterval[0]
+  let max: number = newInterval[1]
+  let addS: boolean = false
+  const res: number[][] = []
+  for (let i = 0; i < intervals.length; i++) {
+    if (intervals[i][1] < min) {
+      res.push(intervals[i])
+      continue
     }
-    return intervals
+    if (intervals[i][0] > max) {
+      if (!addS) {
+        res.push([min, max])
+        addS = true
+      }
+      res.push(intervals[i])
+      continue
+    }
+    min = Math.min(min, intervals[i][0])
+    max = Math.max(max, intervals[i][1])
   }
-
-  
-  return intervals
+  if (!addS) {
+    res.push([min, max])
+  }
+  return res
 };
